@@ -1,6 +1,6 @@
 # Ohjelmistotekniikka, harjoitustyö
 
 ## Dokumentaatio
-[vaatimusmaarittely.md](https://github.com/zzlo/ohte-harjoitusty-/blob/master/dokumentaatio/vaatimusmaarittely.md)
+[vaatimusmaarittely.md](https://github.com/zzlo/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
-[tuntikirjanpito.md](https://github.com/zzlo/ohte-harjoitusty-/blob/master/dokumentaatio/tuntikirjanpito.md)
+[tuntikirjanpito.md](https://github.com/zzlo/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
