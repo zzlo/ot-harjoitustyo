@@ -6,15 +6,16 @@ def main():
     width = 5
     display_height = 64 * height
     display_width = width * 64
+    highscore_height = 64
 
     pygame.init()
 
-    screen = pygame.display.set_mode((display_width, display_height))
+    screen = pygame.display.set_mode((display_width, display_height + highscore_height))
 
     pygame.display.set_caption("2048")
 
     clock = pygame.time.Clock()
-    level = Level(display_height)
+    level = Level(display_height, highscore_height)
 
     screen.fill((187,173,160))
     pygame.display.flip()
@@ -37,7 +38,7 @@ def main():
         level.all_sprites.draw(screen)
         screen.blit(level.text_surface, (0,0))
         pygame.display.flip()
-        
+
         clock.tick(60)
 
 
