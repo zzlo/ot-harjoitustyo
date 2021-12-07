@@ -1,8 +1,7 @@
 import pygame
-import os
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, x=0, y=0, value = 2):
+    def __init__(self, tile_x=0, tile_y=0, value = 2):
         super().__init__()
 
         width = 64
@@ -13,9 +12,9 @@ class Tile(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-        self.rect.x = x
-        self.rect.y = y
-    
+        self.rect.x = tile_x
+        self.rect.y = tile_y
+
     def _fill_with_colour(self, value):
         colours = {
             0: (205, 193, 180),
