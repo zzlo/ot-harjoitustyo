@@ -16,7 +16,7 @@ Sovellus on versio 2048-pelistä, jossa tavoitteena on luoda 2048-laatta.
 poetry install
 ```
 
-3. Käynnistä sovellus komennolla:
+2. Käynnistä sovellus komennolla:
 
 ```bash
 poetry run invoke start
