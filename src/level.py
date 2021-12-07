@@ -1,3 +1,4 @@
+import os
 import random
 import pygame
 from sprites.tile import Tile
@@ -14,22 +15,24 @@ class Level:
         self.game_state = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
         self.game_score = 0
+        self.record_score = self._read_score()
 
         self._initialize_sprites()
 
     def _initialize_sprites(self):
         self._create_new_tile()
         self._create_new_tile()
+        self.game_score = 0
 
         self._add_sprites()
 
     def _add_sprites(self):
-        height = 4
-        width = 4
-        spacing = 12.8
-
         tile_height = 64
         tile_width = tile_height
+
+        height = 4
+        width = 4
+        spacing = tile_height/5
 
         self.all_sprites.empty()
         self.tiles.empty()
@@ -48,8 +51,11 @@ class Level:
                     (normalized_x + tile_width/2 - spacing/2,
                     normalized_y + tile_height/2 - spacing))
 
-        text = self.font.render(f"highscore: {self.game_score}", True, (0,0,0))
-        self.text_surface.blit(text,(self.display_size/3, self.highscore_height/3))
+        text = self.font.render(f"current: {self.game_score}", True, (0,0,0))
+        self.text_surface.blit(text,(self.display_size * 0.55, self.highscore_height/1.5))
+
+        text = self.font.render(f"record: {self.record_score}", True, (0,0,0))
+        self.text_surface.blit(text,(self.display_size * 0.57, self.highscore_height/5))
 
         self.all_sprites.add(
             self.tiles
@@ -69,6 +75,11 @@ class Level:
 
         if placeholder != self.game_state:
             self._create_new_tile()
+            self._add_sprites()
+
+        if self.game_score > self.record_score:
+            self.record_score = self.game_score
+            self._save_score(self.game_score)
             self._add_sprites()
 
         if self._game_over():
@@ -179,3 +190,27 @@ class Level:
         self._combine()
         self._flatten()
         self._reverse()
+
+    def _save_score(self, score):
+        file_path = "./"
+        file_name = "highscore.txt"
+
+        name = os.path.join(file_path, file_name)
+        f = open(name, "w")
+        f.write(str(score))
+        f.close()
+
+    def _read_score(self):
+        file_path = "./"
+        file_name = "highscore.txt"
+        name = os.path.join(file_path, file_name)
+
+        if not os.path.isfile(name):
+            return 0
+
+        f = open(name, "r")
+        
+        score = int(f.read())
+        f.close()
+
+        return score
