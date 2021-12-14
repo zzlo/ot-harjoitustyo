@@ -23,6 +23,8 @@ class Level:
         self._initialize_sprites()
 
     def _initialize_sprites(self):
+        """[summary]
+        """
         self._create_new_tile()
         self._create_new_tile()
         self.game_score = 0
@@ -88,6 +90,11 @@ class Level:
             self.text_surface.blit(text,(self.display_size/3, self.highscore_height/3))
 
     def _game_over(self):
+        """Tarkistaa onko pelilaudalla jäljellä laillisia siirtoja. Jos siirtoja ei ole, peli päättyy.
+
+        Returns:
+            True, jos siirtoja ei enää ole (peli ohi). False, jos siirtoja voi edelleen tehdä.
+        """
         for x in range(4):
             for y in range(4):
                 if self.game_state[x][y] == 0:
@@ -105,6 +112,8 @@ class Level:
         return True
 
     def _flatten(self):
+        """Työntää laatat vasempaan reunaan, poistaen tyhjät laatat numerollisten laattojen välistä.
+        """
         new_state = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
         for x in range(4):
@@ -116,6 +125,8 @@ class Level:
         self.game_state = new_state
 
     def _combine(self):
+        """Yhdistää vaakatasossa vierekkäin olevat laatat (vasempaan suuntaan), poistamalla molemmat laatat ja luomalla yhden kaksi kertaa suuremman laatan.
+        """
         for x in range(4):
             for y in range(3):
                 if self.game_state[x][y] == 0:
@@ -130,6 +141,8 @@ class Level:
                         self.victory = True
 
     def _reverse(self):
+        """Kääntää laatat vaakatasossa päinvastaiseksi.
+        """
         new_state = []
         for x in range(4):
             new_state.append([])
@@ -139,6 +152,8 @@ class Level:
         self.game_state = new_state
 
     def _change_axis(self):
+        """Vaihtaa x- ja y-akselin paikat keskenään.
+        """
         new_state = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
         for x in range(4):
@@ -148,6 +163,8 @@ class Level:
         self.game_state = new_state
 
     def _create_new_tile(self):
+        """Arpoo jonkun tyhjän ruudun koordinaatit, ja luo sen paikalle joko 2- tai 4-arvoisen laatan.
+        """
         x = random.randint(0,3)
         y = random.randint(0,3)
 
@@ -163,6 +180,9 @@ class Level:
             self.game_state[x][y] = 2
 
     def _move_up(self):
+        """Siirtää laatat yläreunaan, yhdistäen samanarvoiset, vierekkäiset laatat. Funktio vaihtaa pelilaudan akselit keskenään alussa ja lopussa,
+        koska flatten siirtää laatat vasempaan reunaan.
+        """
         self._change_axis()
         self._flatten()
         self._combine()
@@ -170,6 +190,9 @@ class Level:
         self._change_axis()
 
     def _move_down(self):
+        """Siirtää laatat alareunaan, yhdistäen samanarvoiset, vierekkäiset laatat. Funktio vaihtaa pelilaudan akselit keskenään sekä kääntää lisäksi laatat, alussa ja lopussa,
+        koska flatten siirtää laatat vasempaan reunaan.
+        """
         self._change_axis()
         self._reverse()
         self._flatten()
@@ -179,11 +202,16 @@ class Level:
         self._change_axis()
 
     def _move_left(self):
+        """Siirtää laatat vasempaan reunaan, yhdistäen samanarvoiset, vierekkäiset laatat.
+        """
         self._flatten()
         self._combine()
         self._flatten()
 
     def _move_right(self):
+        """Siirtää laatat oikeaan reunaan, yhdistäen samanarvoiset, vierekkäiset laatat. Funktio kääntää laatat alussa ja lopussa, koska
+        flatten siirtää laatat vasempaan reunaan.
+        """
         self._reverse()
         self._flatten()
         self._combine()
@@ -191,6 +219,11 @@ class Level:
         self._reverse()
 
     def _save_score(self, score):
+        """Tallentaa score-muuttujassa annetun tuloksen highscore-tiedostoon.
+
+        Args:
+            score: Tiedostoon tallennettava luku.
+        """
         file_path = "./"
         file_name = "highscore.txt"
 
