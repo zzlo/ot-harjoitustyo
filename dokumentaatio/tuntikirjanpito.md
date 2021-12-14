@@ -7,4 +7,5 @@ päivä | aika | mitä tein
 5.12. |  1   | pylint, päivittyvä pistetilasto
 7.12. |  2   | pelin resetointi, paikallisesti tallennetu highscore
 7.12. |  1   | testejä, tyyliä siistitty
+7.12. |  2   | ui refaktorointi, konfiguraatio lisätty
 Yhteensä |  10
