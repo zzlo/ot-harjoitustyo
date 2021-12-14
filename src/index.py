@@ -1,24 +1,20 @@
 import pygame
 from level import Level
+from ui.ui import Ui
+from config import Configuration
 
 def main():
-    height = 5
-    width = 5
-    display_height = 64 * height
-    display_width = width * 64
-    highscore_height = 100
+    conf = Configuration()
+    display_height = conf.display_height
+    display_width = conf.display_width
+    score_height = conf.score_height
 
     pygame.init()
 
-    screen = pygame.display.set_mode((display_width, display_height + highscore_height))
-
-    pygame.display.set_caption("2048")
+    ui = Ui(display_width, display_height + score_height, score_height)
 
     clock = pygame.time.Clock()
-    level = Level(display_height, highscore_height)
-
-    screen.fill((187,173,160))
-    pygame.display.flip()
+    level = Level(display_height, score_height)
 
     while True:
         for event in pygame.event.get():
@@ -32,22 +28,22 @@ def main():
                 if event.key == pygame.K_DOWN:
                     level.move("d")
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if display_width * 0.07 <= mouse[0] <= display_width * 0.07 + 128 and highscore_height/1.5 <= mouse[1] <= highscore_height/1.5 + 32:
-                    level = Level(display_height, highscore_height)
+                if display_width * 0.07 <= mouse[0] <= display_width * 0.07 + 128 and score_height/1.5 <= mouse[1] <= score_height/1.5 + 32:
+                    level = Level(display_height, score_height)
             elif event.type == pygame.QUIT:
                 exit()
 
-        screen.fill((187,173,160))
-        level.all_sprites.draw(screen)
+        ui.draw_background()
+        level.all_sprites.draw(ui.screen)
 
         mouse = pygame.mouse.get_pos()
 
-        pygame.draw.rect(screen, (143,122,102), [display_width * 0.07, highscore_height/1.5, 128, 32])
-        text = level.font.render("new game", True, (0,0,0))
-        level.text_surface.blit(text,(display_width * 0.07 + 9, highscore_height/1.5))
+        pygame.draw.rect(ui.screen, (143,122,102), [display_width * 0.07, score_height/1.5, 128, 32])
 
-        screen.blit(level.text_surface, (0,0))
-        pygame.display.flip()
+        ui.draw_scoreboard(level.game_score, level.record_score)
+        ui.screen.blit(level.text_surface, (0,0))
+        ui.screen.blit(ui.text_surface, (0,0))
+        ui.update_ui()
 
         clock.tick(60)
 

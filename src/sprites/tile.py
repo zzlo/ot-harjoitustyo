@@ -1,10 +1,10 @@
 import pygame
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, tile_x=0, tile_y=0, value = 2):
+    def __init__(self, tile_x=0, tile_y=0, tile_width = 64, value = 2):
         super().__init__()
 
-        width = 64
+        width = tile_width
         height = width
 
         self.image = pygame.Surface([width, height])

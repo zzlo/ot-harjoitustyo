@@ -2,15 +2,18 @@ import os
 import random
 import pygame
 from sprites.tile import Tile
+from config import Configuration
 
 class Level:
     def __init__(self, display_size, highscore_height):
+        conf = Configuration()
         self.highscore_height = highscore_height
         self.display_size = display_size
         self.text_surface = pygame.Surface((display_size, display_size + highscore_height), pygame.SRCALPHA)
-        self.font = pygame.font.SysFont("Helvetica", 25)
+        self.font = pygame.font.SysFont("Helvetica", conf.font_size)
         self.tiles = pygame.sprite.Group()
         self.all_sprites = pygame.sprite.Group()
+        self.victory = False
 
         self.game_state = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
@@ -27,35 +30,27 @@ class Level:
         self._add_sprites()
 
     def _add_sprites(self):
-        tile_height = 64
+        tile_height = self.display_size / 5
         tile_width = tile_height
 
-        height = 4
-        width = 4
         spacing = tile_height/5
 
         self.all_sprites.empty()
         self.tiles.empty()
         self.text_surface.fill((0,0,0,0))
 
-        for y in range(height):
-            for x in range(width):
-                normalized_x = x * 64 + (x+1) * spacing
-                normalized_y = y * 64 + (y+1) * spacing + self.highscore_height
+        for y in range(4):
+            for x in range(4):
+                normalized_x = x * tile_width + (x+1) * spacing
+                normalized_y = y * tile_height + (y+1) * spacing + self.highscore_height
 
-                self.tiles.add(Tile(normalized_x, normalized_y, self.game_state[y][x]))
+                self.tiles.add(Tile(normalized_x, normalized_y, tile_width, self.game_state[y][x]))
 
                 if self.game_state[y][x] != 0:
                     text = self.font.render(f"{self.game_state[y][x]}", True, (0,0,0))
                     self.text_surface.blit(text,
                     (normalized_x + tile_width/2 - spacing/2,
                     normalized_y + tile_height/2 - spacing))
-
-        text = self.font.render(f"current: {self.game_score}", True, (0,0,0))
-        self.text_surface.blit(text,(self.display_size * 0.55, self.highscore_height/1.5))
-
-        text = self.font.render(f"record: {self.record_score}", True, (0,0,0))
-        self.text_surface.blit(text,(self.display_size * 0.57, self.highscore_height/5))
 
         self.all_sprites.add(
             self.tiles
@@ -87,7 +82,10 @@ class Level:
             print("---------------")
             print(self.game_score)
             text = self.font.render("gameover!", True, (0,0,0))
-            self.text_surface.blit(text,(self.display_size/3, self.highscore_height/3 - 25))
+            self.text_surface.blit(text,(self.display_size/3, self.highscore_height/3))
+        elif self.victory:
+            text = self.font.render("voitit!", True, (0,0,0))
+            self.text_surface.blit(text,(self.display_size/3, self.highscore_height/3))
 
     def _game_over(self):
         for x in range(4):
@@ -128,6 +126,9 @@ class Level:
                     self.game_score += self.game_state[x][y]
                     self.game_state[x][y+1] = 0
 
+                    if self.game_state[x][y] == 2048:
+                        self.victory = True
+
     def _reverse(self):
         new_state = []
         for x in range(4):
@@ -158,10 +159,8 @@ class Level:
 
         if tile_randomizer > 90:
             self.game_state[x][y] = 4
-            self.game_score += 4
         else:
             self.game_state[x][y] = 2
-            self.game_score += 2
 
     def _move_up(self):
         self._change_axis()
