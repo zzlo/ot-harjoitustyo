@@ -6,8 +6,8 @@ Sovelluksessa on vain yksi käyttäjätyyppi, *pelaaja*.
 ## Keskeinen toiminallisuus
 * Pelaaja voi aloittaa uuden pelin, jolloin generoidaan 4x4 pelikenttä, jossa on alussa muutama 2- tai 4-arvoinen laatta.
 * Pelaaja voi liikuttaa laattoja joko ylös, alas, oikealle tai vasemmalle. Liikuttaminen tapahtuu nuolinäppäimillä. Liikuttaessa laatat siirtyvät nuolen suuntaan niin pitkälle kuin mahdollista. Jos tiellä on samanarvoinen laatta, yhdistyvät nämä laatat muodostaakseen uuden 2x-arvoisen laatan. Laattojen liikkumisen jälkeen generoidaan  yksi uusi 2- tai 4-arvoinen laatta johonkin tyhjään ruutuun.
-* Mahdollisten siirtojen loppuessa pelaaja häviää pelin, ja peli on aloitettava uudestaan. Jos pelaaja saa luotua 2048-arvoisen laatan, onnittelee peli pelaajaa voitosta, mutta peliä voi silti jatkaa eteenpäin.
-* Peli seuraa myös pelaajan pistesaldoa, johon saa jokaisesta laattojen yhdistyksestä uuden laatan verran pisteitä lisää.
+* Mahdollisten siirtojen loppuessa pelaaja häviää pelin, ja peli on aloitettava uudestaan. Jos pelaaja saa luotua 2048-arvoisen laatan, onnittelee peli pelaajaa voitosta, mutta peliä voi silti jatkaa eteenpäin. *TEHTY* (pl. voitosta ei onnittelua)
+* Peli seuraa myös pelaajan pistesaldoa, johon saa jokaisesta laattojen yhdistyksestä uuden laatan verran pisteitä lisää. *TEHTY*
 ## Jatkokehitysideoita
 * Highscore-lista. Pelaajan hävitessä pelaaja voi syöttää nimen (tai käyttäjätunnuksen?), joka annetaan pistetuloksen kanssa highscoret sisältävään tauluun. Lista voisi mahdollisesti hyödyntää esimerkiksi Google Docsia, johon sovellus voisi päivittää tuloksia ja myös näyttää ne itse sovelluksessa.
 * Kustomoitavat kuvakkeet eri arvoisille laatoille.
