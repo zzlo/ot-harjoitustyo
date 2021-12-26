@@ -51,3 +51,52 @@ class TestLevel(unittest.TestCase):
         expected = [[2,0,2,2],[0,2,2,0],[0,2,2,0],[0,0,2,2]]
 
         self.assertEqual(self.level.game_state, expected)
+
+    def test_move_up(self):
+        self.level.game_state = [[2,0,0,0],[0,2,2,0],[2,2,2,2],[2,0,0,2]]
+
+        self.level._move_up()
+
+        expected = [[4,4,4,4],[2,0,0,0],[0,0,0,0],[0,0,0,0]]
+
+        self.assertEqual(self.level.game_state, expected)
+
+    def test_move_down(self):
+        self.level.game_state = [[2,0,0,0],[0,2,2,0],[2,2,2,2],[2,0,0,2]]
+
+        self.level._move_down()
+
+        expected = [[0,0,0,0],[0,0,0,0],[2,0,0,0],[4,4,4,4]]
+
+        self.assertEqual(self.level.game_state, expected)
+
+    def test_move_left(self):
+        self.level.game_state = [[2,0,2,0],[0,2,2,0],[0,2,0,2],[0,0,0,2]]
+
+        self.level._move_left()
+
+        expected = [[4,0,0,0],[4,0,0,0],[4,0,0,0],[2,0,0,0]]
+
+        self.assertEqual(self.level.game_state, expected)
+
+    def test_move_right(self):
+        self.level.game_state = [[2,0,2,0],[0,2,2,0],[0,2,0,2],[0,0,0,2]]
+
+        self.level._move_right()
+
+        expected = [[0,0,0,4],[0,0,0,4],[0,0,0,4],[0,0,0,2]]
+
+        self.assertEqual(self.level.game_state, expected)
+
+    def test_game_over(self):
+        self.level.game_state = [[2,4,3,5],[7,6,8,9],[14,12,13,11],[15,16,17,19]]
+
+        value = self.level._game_over()
+
+        self.assertEqual(value, True)
+
+        self.level.game_state = [[2,0,2,0],[0,2,2,0],[0,2,0,2],[0,0,0,2]]
+
+        value = self.level._game_over()
+
+        self.assertEqual(value, False)
