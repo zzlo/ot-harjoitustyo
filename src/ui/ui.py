@@ -13,12 +13,22 @@ class Ui:
         self.update_ui()
 
     def draw_background(self):
+        """Piirtää taustan.
+        """
         self.screen.fill((187,173,160))
 
     def update_ui(self):
+        """Päivittää ruudun.
+        """
         pygame.display.flip()
 
     def draw_scoreboard(self, game_score, record_score):
+        """Piirtää pistetilastot sisältävän tulostaulun ohjelman yläreunaan.
+
+        Args:
+            game_score: Nykyisen pelin pistesaldo
+            record_score: Ennätyspistesaldo
+        """
         self.text_surface.fill((0,0,0,0))
 
         self.text = self.font.render("new game", True, (0,0,0))

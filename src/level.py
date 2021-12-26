@@ -23,7 +23,7 @@ class Level:
         self._initialize_sprites()
 
     def _initialize_sprites(self):
-        """[summary]
+        """Alustaa pelilaudan luomalla kaksi laattaa ja piirtämällä ne.
         """
         self._create_new_tile()
         self._create_new_tile()
@@ -32,6 +32,8 @@ class Level:
         self._add_sprites()
 
     def _add_sprites(self):
+        """Tyhjentää sen hetkisen sprite-kokoelman ja luo tilalle uuden päivitettyä pelilautaa vastaavan sprite-kokoelman.
+        """
         tile_height = self.display_size / 5
         tile_width = tile_height
 
@@ -59,6 +61,11 @@ class Level:
         )
 
     def move(self, key):
+        """Liikuttaa laattoja key-muuttujan mukaisesti.
+
+        Args:
+            key: Liikkumisen suunnan määrittävä merkki.
+        """
         placeholder = self.game_state
 
         if key == "r":
@@ -230,6 +237,11 @@ class Level:
         f.close()
 
     def _read_score(self):
+        """Lukee paikallisessa tiedostossa olevan ennätystuloksen ja palauttaa sen.
+
+        Returns:
+            0, jos tiedostoa ei ole. Tiedostosta löytyvä luku, jos tiedosto on olemassa.
+        """
         file_path = "./"
         file_name = "highscore.txt"
         name = os.path.join(file_path, file_name)
