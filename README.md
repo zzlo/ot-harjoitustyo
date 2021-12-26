@@ -2,6 +2,7 @@
 Sovellus on versio 2048-pelistä, jossa tavoitteena on luoda 2048-laatta.
 
 [RELEASE 1](https://github.com/zzlo/ot-harjoitustyo/releases/tag/viikko5)
+
 [FINAL RELEASE](https://github.com/zzlo/ot-harjoitustyo/releases/tag/loppupalautus)
 
 ## Dokumentaatio
