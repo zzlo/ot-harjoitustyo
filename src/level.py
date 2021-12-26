@@ -80,9 +80,6 @@ class Level:
             self._add_sprites()
 
         if self._game_over():
-            print("***game over***")
-            print("---------------")
-            print(self.game_score)
             text = self.font.render("gameover!", True, (0,0,0))
             self.text_surface.blit(text,(self.display_size/3, self.highscore_height/3))
         elif self.victory:
